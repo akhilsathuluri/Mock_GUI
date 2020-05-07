@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Log</class>
+ <widget class="QDialog" name="Log">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Log</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>240</y>
+     <width>341</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>20</y>
+     <width>321</width>
+     <height>211</height>
+    </rect>
+   </property>
+   <row>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string>Name</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Time stamp</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Status</string>
+    </property>
+   </column>
+   <item row="0" column="0">
+    <property name="text">
+     <string>image123456
+</string>
+    </property>
+   </item>
+   <item row="0" column="1">
+    <property name="text">
+     <string>08:30:00
+</string>
+    </property>
+   </item>
+   <item row="0" column="2">
+    <property name="text">
+     <string>OK</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>170</green>
+       <blue>0</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+   <item row="1" column="0">
+    <property name="text">
+     <string>image123457
+</string>
+    </property>
+   </item>
+   <item row="1" column="1">
+    <property name="text">
+     <string>08:32:00
+</string>
+    </property>
+   </item>
+   <item row="1" column="2">
+    <property name="text">
+     <string>NOK</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>255</red>
+       <green>0</green>
+       <blue>0</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+   <item row="2" column="0">
+    <property name="text">
+     <string>image123458
+</string>
+    </property>
+   </item>
+   <item row="2" column="1">
+    <property name="text">
+     <string>08:34:00
+</string>
+    </property>
+   </item>
+   <item row="2" column="2">
+    <property name="text">
+     <string>OK</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>170</green>
+       <blue>0</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+   <item row="3" column="0">
+    <property name="text">
+     <string>image123459
+</string>
+    </property>
+   </item>
+   <item row="3" column="1">
+    <property name="text">
+     <string>08:36:00
+</string>
+    </property>
+   </item>
+   <item row="3" column="2">
+    <property name="text">
+     <string>OK</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>170</green>
+       <blue>0</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+   <item row="4" column="0">
+    <property name="text">
+     <string>image123460
+</string>
+    </property>
+   </item>
+   <item row="4" column="1">
+    <property name="text">
+     <string>08:38:00
+</string>
+    </property>
+   </item>
+   <item row="4" column="2">
+    <property name="text">
+     <string>OK</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>170</green>
+       <blue>0</blue>
+      </color>
+     </brush>
+    </property>
+    <property name="foreground">
+     <brush brushstyle="NoBrush">
+      <color alpha="255">
+       <red>0</red>
+       <green>0</green>
+       <blue>0</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+   <item row="5" column="0">
+    <property name="text">
+     <string>image123461
+</string>
+    </property>
+   </item>
+   <item row="5" column="1">
+    <property name="text">
+     <string>08:40:00
+</string>
+    </property>
+   </item>
+   <item row="5" column="2">
+    <property name="text">
+     <string>OK</string>
+    </property>
+    <property name="background">
+     <brush brushstyle="SolidPattern">
+      <color alpha="255">
+       <red>0</red>
+       <green>170</green>
+       <blue>0</blue>
+      </color>
+     </brush>
+    </property>
+   </item>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Log</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Log</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
