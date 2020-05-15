@@ -32,6 +32,7 @@ public:
     QPushButton *Report;
     QPushButton *Settings;
     QPushButton *Log;
+    QPushButton *Camera;
     QMenuBar *menuBar;
     QMenu *menuMain_menu;
     QToolBar *mainToolBar;
@@ -55,7 +56,10 @@ public:
         Settings->setGeometry(QRect(270, 70, 111, 27));
         Log = new QPushButton(centralWidget);
         Log->setObjectName(QString::fromUtf8("Log"));
-        Log->setGeometry(QRect(150, 140, 99, 27));
+        Log->setGeometry(QRect(20, 130, 99, 27));
+        Camera = new QPushButton(centralWidget);
+        Camera->setObjectName(QString::fromUtf8("Camera"));
+        Camera->setGeometry(QRect(150, 130, 99, 27));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -84,6 +88,7 @@ public:
         Report->setText(QApplication::translate("MainWindow", "Report (\340\244\260\340\244\277\340\244\252\340\245\213\340\244\260\340\245\215\340\244\237)", 0, QApplication::UnicodeUTF8));
         Settings->setText(QApplication::translate("MainWindow", "Settings(\340\244\270\340\245\207\340\244\237\340\245\215\340\244\207\340\244\250\340\245\215\340\244\227)", 0, QApplication::UnicodeUTF8));
         Log->setText(QApplication::translate("MainWindow", "Log (\340\244\262\340\245\211\340\244\227)", 0, QApplication::UnicodeUTF8));
+        Camera->setText(QApplication::translate("MainWindow", "Camera", 0, QApplication::UnicodeUTF8));
         menuMain_menu->setTitle(QApplication::translate("MainWindow", "Main menu", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

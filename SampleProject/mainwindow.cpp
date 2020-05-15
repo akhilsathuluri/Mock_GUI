@@ -3,6 +3,8 @@
 #include "status.h"
 #include "log.h"
 #include "report.h"
+#include "camera.h"
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -35,4 +37,12 @@ void MainWindow::on_Report_clicked()
     report rep;
     rep.setModal(true);
     rep.exec();
+}
+
+void MainWindow::on_Camera_clicked()
+{
+    Camera cam;
+    cam.setModal(true);
+    cam.exec();
+    //cam.test();
 }

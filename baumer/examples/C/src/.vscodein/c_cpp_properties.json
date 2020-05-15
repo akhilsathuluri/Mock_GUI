@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "name": "BGAPI",
+            "includePath": [
+                "@BGAPI_SDK_INC_DIR@"
+            ]
+        }
+    ],
+    "version": 4
+}

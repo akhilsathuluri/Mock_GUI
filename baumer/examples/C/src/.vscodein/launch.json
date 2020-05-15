@@ -1,0 +1,48 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "@CMAKE_BINARY_DIR@/${input:example}",
+            "cwd": "@CMAKE_BINARY_DIR@",
+            "environment": [],
+            "externalConsole": true,
+            "stopAtEntry": true,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "miDebuggerPath": "@C_COMPILER_DIR@/gdb.exe"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "example",
+            "type": "pickString",
+            "description": "select the example to run",
+            "options": [
+                        "0_Common/001_ImageCaptureMode_Polling/001_ImageCaptureMode_Polling.exe",
+                        "0_Common/002_CameraParameterTree/002_CameraParameterTree.exe",
+                        "0_Common/003_CameraParameterSetup/003_CameraParameterSetup.exe",
+                        "0_Common/004_PartialScan_ExternalBuffer/004_PartialScan_ExternalBuffer.exe",
+                        "0_Common/005_PixelTransformation/005_PixelTransformation.exe",
+                        "0_Common/006_DeviceEventMode_Polling/006_DeviceEventMode_Polling.exe",
+                        "0_Common/007_Chunk/007_Chunk.exe",
+                        "0_Common/008_Trace/008_Trace.exe",
+                        "0_Common/009_ShortExample/009_ShortExample.exe",
+                        "0_Common/010_PnPEventMode_Polling/010_PnPEventMode_Polling.exe",
+                        "0_Common/011_ImageCaptureMode_Handler/011_ImageCaptureMode_Handler.exe",
+                        "0_Common/012_DeviceEventMode_Handler/012_DeviceEventMode_Handler.exe",
+                        "0_Common/013_PnPEventMode_Handler/013_PnPEventMode_Handler.exe",
+                        "1_GigE/101_HeartbeatTimeout/101_HeartbeatTimeout.exe",
+                        "1_GigE/102_ForceIP/102_ForceIP.exe"
+                    ]
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+# Baumer
+SUBSYSTEM=="usb", ATTRS{idVendor}=="2825", ATTRS{idProduct}=="*", MODE="0666", GROUP="users"
+
+# Leica
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1711", ATTRS{idProduct}=="*", MODE="0666", GROUP="users"
+

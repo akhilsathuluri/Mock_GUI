@@ -22,6 +22,12 @@ private slots:
 
     void on_Report_clicked();
 
+    void on_Log_2_clicked();
+
+    void on_camera_clicked();
+
+    void on_Camera_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
