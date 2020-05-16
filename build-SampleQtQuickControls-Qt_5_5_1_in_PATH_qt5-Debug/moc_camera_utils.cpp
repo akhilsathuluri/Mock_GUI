@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_cameraUtils_t {
     QByteArrayData data[4];
-    char stringdata0[25];
+    char stringdata0[30];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,10 +32,10 @@ static const qt_meta_stringdata_cameraUtils_t qt_meta_stringdata_cameraUtils = {
 QT_MOC_LITERAL(0, 0, 11), // "cameraUtils"
 QT_MOC_LITERAL(1, 12, 4), // "echo"
 QT_MOC_LITERAL(2, 17, 0), // ""
-QT_MOC_LITERAL(3, 18, 6) // "result"
+QT_MOC_LITERAL(3, 18, 11) // "find_device"
 
     },
-    "cameraUtils\0echo\0\0result"
+    "cameraUtils\0echo\0\0find_device"
 };
 #undef QT_MOC_LITERAL
 
@@ -74,7 +74,7 @@ void cameraUtils::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->echo(); break;
-        case 1: { QString _r = _t->result();
+        case 1: { QString _r = _t->find_device();
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = _r; }  break;
         default: ;
         }

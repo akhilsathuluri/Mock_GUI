@@ -33,7 +33,7 @@ cameraUtils::cameraUtils(QObject *parent)
 
 }
 
-QString cameraUtils::result()
+QString cameraUtils::find_device()
 {
     systemList = SystemList::GetInstance();
     systemList->Refresh();

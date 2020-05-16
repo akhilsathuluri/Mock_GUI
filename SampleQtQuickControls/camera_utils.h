@@ -10,7 +10,7 @@ class cameraUtils : public QObject
     Q_OBJECT
 public:
     cameraUtils(QObject* parent = nullptr);
-    Q_INVOKABLE QString result();
+    Q_INVOKABLE QString find_device();
 signals:
     void echo();
 };

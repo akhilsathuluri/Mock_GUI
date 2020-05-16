@@ -36,7 +36,7 @@ ApplicationWindow {
         anchors.bottomMargin: 138
         anchors.horizontalCenter: parent.horizontalCenter
         onClicked:{
-            console.log(camutils.result())
+            console.log(camutils.find_device())
         }
     }
 }
