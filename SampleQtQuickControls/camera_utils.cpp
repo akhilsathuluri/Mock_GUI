@@ -33,20 +33,6 @@ cameraUtils::cameraUtils(QObject *parent)
 
 }
 
-//void cameraUtils::onButtonClicked()
-//{
-//    systemList = SystemList::GetInstance();
-//    systemList->Refresh();
-//    qDebug() << "Devices: " << systemList->size();
-//    for (SystemList::iterator sysIterator = systemList->begin(); sysIterator != systemList->end(); sysIterator++)
-//    {
-//        qDebug() << "  5.2.1   System Name:     " << sysIterator->second->GetFileName();
-//            qDebug() << "          System Type:     " << sysIterator->second->GetTLType();
-//            qDebug() << "          System Version:  " << sysIterator->second->GetVersion();
-//            qDebug() << "          System PathName: " << sysIterator->second->GetPathName();
-//    }
-//    emit echo();
-//}
 QString cameraUtils::result()
 {
     systemList = SystemList::GetInstance();
@@ -60,5 +46,4 @@ QString cameraUtils::result()
     }
 
     return y;
-
 }

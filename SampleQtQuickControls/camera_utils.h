@@ -10,7 +10,6 @@ class cameraUtils : public QObject
     Q_OBJECT
 public:
     cameraUtils(QObject* parent = nullptr);
-//    Q_INVOKABLE void onButtonClicked();
     Q_INVOKABLE QString result();
 signals:
     void echo();
