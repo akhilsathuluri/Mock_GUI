@@ -52,7 +52,7 @@ QString cameraUtils::result()
     systemList = SystemList::GetInstance();
     systemList->Refresh();
     char a[14] = "\n";
-    QString y="no";
+    QString y;
     y.append("Device List \n");
     for (SystemList::iterator sysIterator = systemList->begin(); sysIterator != systemList->end(); sysIterator++)
     { y.append((QString)sysIterator->second->GetPathName());

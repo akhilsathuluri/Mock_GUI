@@ -35,9 +35,8 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 138
         anchors.horizontalCenter: parent.horizontalCenter
-
-    Text{
-        text:camutils.result()
+        onClicked:{
+            console.log(camutils.result())
         }
     }
 }
