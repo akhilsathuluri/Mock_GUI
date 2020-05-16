@@ -59,7 +59,8 @@ ApplicationWindow {
             text: qsTr("Camera")
             onClicked: {
                 var component = Qt.createComponent("camerap.qml")
-                var window =component.createObject("root")
+                console.log("Component Status:", component.status, component.errorString())
+                var window = component.createObject(root)
                 window.show()
             }
         }
@@ -71,7 +72,5 @@ ApplicationWindow {
             text: qsTr("Extra")
         }
     }
-
-
 }
 

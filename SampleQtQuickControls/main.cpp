@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    qmlRegisterType<camera_utils>("com.camera_utils", 1, 0, "cameraUtils");
+    qmlRegisterType<cameraUtils>("io.qt.camerautils", 1, 0, "CamUtils");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

@@ -1,9 +1,9 @@
 #include "camera_utils.h"
-#include "bgapi2_genicam.hpp"
 #include <QDebug>
+#include "bgapi2_genicam.hpp"
+#include <stdio.h>
 #include <iostream>
 #include <iomanip>
-
 using namespace BGAPI2;
 
 BGAPI2::SystemList* systemList = NULL;
@@ -25,24 +25,40 @@ BGAPI2::String sDataStreamID;
 BGAPI2::BufferList* bufferList = NULL;
 BGAPI2::Buffer* pBuffer = NULL;
 BGAPI2::String sBufferID;
+int returncode = 0;
 
-camera_utils::camera_utils(QObject *parent) :
-    QObject(parent)
+cameraUtils::cameraUtils(QObject *parent)
+    : QObject(parent)
 {
+
 }
 
-int camera_utils::check_status()
-{
-    systemList = SystemList::GetInstance();
-    systemList->Refresh();
-    qDebug() << "Devices: " << systemList->size();
-    for (SystemList::iterator sysIterator = systemList->begin(); sysIterator != systemList->end(); sysIterator++)
-        {
-//            qDebug() << "  5.2.1   System Name:     " << sysIterator->second->GetFileName();
+//void cameraUtils::onButtonClicked()
+//{
+//    systemList = SystemList::GetInstance();
+//    systemList->Refresh();
+//    qDebug() << "Devices: " << systemList->size();
+//    for (SystemList::iterator sysIterator = systemList->begin(); sysIterator != systemList->end(); sysIterator++)
+//    {
+//        qDebug() << "  5.2.1   System Name:     " << sysIterator->second->GetFileName();
 //            qDebug() << "          System Type:     " << sysIterator->second->GetTLType();
 //            qDebug() << "          System Version:  " << sysIterator->second->GetVersion();
 //            qDebug() << "          System PathName: " << sysIterator->second->GetPathName();
-        }
-    return 0;
-}
+//    }
+//    emit echo();
+//}
+QString cameraUtils::result()
+{
+    systemList = SystemList::GetInstance();
+    systemList->Refresh();
+    char a[14] = "\n";
+    QString y="no";
+    y.append("Device List \n");
+    for (SystemList::iterator sysIterator = systemList->begin(); sysIterator != systemList->end(); sysIterator++)
+    { y.append((QString)sysIterator->second->GetPathName());
+    y.append(a);
+    }
 
+    return y;
+
+}

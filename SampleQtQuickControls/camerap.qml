@@ -1,10 +1,29 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
-import com.camera_utils 1.0
+import io.qt.camerautils 1.0
+
+//ApplicationWindow {
+//    id: root
+//    width: 1000
+//    height: 480
+//    visible: true
+//    CamUtils {
+//    id: camutils
+//    }
+//    Text{
+
+//    text:camutils.result()
+
+//    }
+//}
 
 ApplicationWindow {
     id: root
     width: 640; height: 480
+
+    CamUtils{
+    id: camutils
+    }
 
     Button {
         id: checkStatus
@@ -16,8 +35,9 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 138
         anchors.horizontalCenter: parent.horizontalCenter
-        onClicked: {
-            cameraUtils.check_status();
+
+    Text{
+        text:camutils.result()
         }
     }
 }

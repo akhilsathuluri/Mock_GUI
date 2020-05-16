@@ -1,21 +1,19 @@
-#ifndef CAMERA_UTILS_H
-#define CAMERA_UTILS_H
+#ifndef BACKEND_H
+#define BACKEND_H
 
 #include <QObject>
 #include <QString>
 
-class camera_utils : public QObject
+
+class cameraUtils : public QObject
 {
     Q_OBJECT
-
 public:
-    explicit camera_utils(QObject *parent = nullptr);
-    Q_INVOKABLE int check_status();
-
-public slots:
-
-private:
-
+    cameraUtils(QObject* parent = nullptr);
+//    Q_INVOKABLE void onButtonClicked();
+    Q_INVOKABLE QString result();
+signals:
+    void echo();
 };
 
-#endif // CAMERA_UTILS_H
+#endif // BACKEND_H
