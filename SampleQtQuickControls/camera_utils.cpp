@@ -1,9 +1,10 @@
 #include "camera_utils.h"
 #include <QDebug>
-#include "bgapi2_genicam.hpp"
+#include "bgapi2_genicam/bgapi2_genicam.hpp"
 #include <stdio.h>
 #include <iostream>
 #include <iomanip>
+
 using namespace BGAPI2;
 
 BGAPI2::SystemList* systemList = NULL;
@@ -27,6 +28,11 @@ BGAPI2::Buffer* pBuffer = NULL;
 BGAPI2::String sBufferID;
 int returncode = 0;
 
+//cameraUtils::cameraUtils()
+//{
+
+//}
+
 cameraUtils::cameraUtils(QObject *parent)
     : QObject(parent)
 {
@@ -44,6 +50,5 @@ QString cameraUtils::find_device()
     { y.append((QString)sysIterator->second->GetPathName());
     y.append(a);
     }
-
     return y;
 }

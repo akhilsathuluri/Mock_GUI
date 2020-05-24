@@ -1,6 +1,7 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import io.qt.camerautils 1.0
+import io.qt.torchutils 1.0
 
 //ApplicationWindow {
 //    id: root
@@ -25,6 +26,10 @@ ApplicationWindow {
     id: camutils
     }
 
+    TorUtils{
+        id:torchutils
+    }
+
     Button {
         id: checkStatus
         x: 248
@@ -37,6 +42,8 @@ ApplicationWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         onClicked:{
             console.log(camutils.find_device())
+            console.log(  )
+            console.log(torchutils.load_model())
         }
     }
 }

@@ -1,0 +1,4 @@
+Ways to use openCV for preprocessing the images before giving it is as an input for libtorch:
+https://github.com/pytorch/pytorch/issues/12506
+
+Need to understand that we should generate our own .so files for openCV or is it some other way. Proceeding with the installed versions.

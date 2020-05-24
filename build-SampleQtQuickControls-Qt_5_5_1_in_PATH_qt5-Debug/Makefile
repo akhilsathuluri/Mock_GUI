@@ -14,8 +14,8 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-CXXFLAGS      = -m64 -pipe -g -std=c++0x -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../SampleQtQuickControls -I. -I../baumer/include/bgapi2_genicam -I../baumer/include/bgapi2_genicam -I../baumer/include/bgapi2_genicam -I../baumer/include/bgapi2_genicam -I../baumer/include/bgapi2_genicam -I../baumer/include/bgapi2_genicam -I../baumer/include/bgapi2_genicam -I../baumer/include/bgapi2_genicam -I../baumer/include/bgapi2_genicam -I../baumer/include/bgapi2_ext_sc -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtQuick -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtQml -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
+CXXFLAGS      = -m64 -pipe -D_GLIBCXX_USE_CXX11_ABI=0 -g -std=c++1y -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+INCPATH       = -I../SampleQtQuickControls -I. -I../baumer/include -I../libtorch/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtQuick -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtQml -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,8 +35,8 @@ COMPRESS      = gzip -9f
 DISTNAME      = SampleQtQuickControls1.0.0
 DISTDIR = /home/nightmareforev/git/Mock_GUI/build-SampleQtQuickControls-Qt_5_5_1_in_PATH_qt5-Debug/.tmp/SampleQtQuickControls1.0.0
 LINK          = g++
-LFLAGS        = -m64
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -L/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls/../baumer/lib/ -lXmlParser_gcc48_v3_2 -lNodeMapData_gcc48_v3_2 -lMathParser_gcc48_v3_2 -llog4cpp_gcc48_v3_2 -lLog_gcc48_v3_2 -lGenApi_gcc48_v3_2 -lGCBase_gcc48_v3_2 -lbgapi2_img -lbgapi2_genicam -lbgapi2_ext_sc -lQt5Quick -lQt5Widgets -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGL -lpthread 
+LFLAGS        = -m64 -fopenmp -D_GLIBCXX_USE_CXX11_ABI=0
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -L/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls/../baumer/lib/ -lbgapi2_ext_sc -lbgapi2_genicam -lbgapi2_img -lGCBase_gcc48_v3_2 -lGenApi_gcc48_v3_2 -llog4cpp_gcc48_v3_2 -lLog_gcc48_v3_2 -lMathParser_gcc48_v3_2 -lNodeMapData_gcc48_v3_2 -lXmlParser_gcc48_v3_2 -L/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls/../libtorch/lib/ -lc10 -lcaffe2_detectron_ops -lcaffe2_module_test_dynamic -lcaffe2_observers -lfbjni -lpytorch_jni -lshm -ltorch -ltorch_cpu -ltorch_global_deps -ltorch_python -lQt5Quick -lQt5Widgets -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -49,12 +49,16 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../SampleQtQuickControls/main.cpp \
-		../SampleQtQuickControls/camera_utils.cpp qrc_qml.cpp \
-		moc_camera_utils.cpp
+		../SampleQtQuickControls/camera_utils.cpp \
+		../SampleQtQuickControls/torch_utils.cpp qrc_qml.cpp \
+		moc_camera_utils.cpp \
+		moc_torch_utils.cpp
 OBJECTS       = main.o \
 		camera_utils.o \
+		torch_utils.o \
 		qrc_qml.o \
-		moc_camera_utils.o
+		moc_camera_utils.o \
+		moc_torch_utils.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -133,6 +137,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/c++11.prf \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/c++14.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qml_debug.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/declarative_debug.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf \
@@ -146,8 +151,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		../SampleQtQuickControls/SampleQtQuickControls.pro ../SampleQtQuickControls/camera_utils.h ../SampleQtQuickControls/main.cpp \
-		../SampleQtQuickControls/camera_utils.cpp
+		../SampleQtQuickControls/SampleQtQuickControls.pro ../SampleQtQuickControls/camera_utils.h \
+		../SampleQtQuickControls/torch_utils.h ../SampleQtQuickControls/main.cpp \
+		../SampleQtQuickControls/camera_utils.cpp \
+		../SampleQtQuickControls/torch_utils.cpp
 QMAKE_TARGET  = SampleQtQuickControls
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = SampleQtQuickControls
@@ -256,6 +263,7 @@ Makefile: ../SampleQtQuickControls/SampleQtQuickControls.pro /usr/lib/x86_64-lin
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/c++11.prf \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/c++14.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qml_debug.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/declarative_debug.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf \
@@ -356,6 +364,7 @@ Makefile: ../SampleQtQuickControls/SampleQtQuickControls.pro /usr/lib/x86_64-lin
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/c++11.prf:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/c++14.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qml_debug.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/declarative_debug.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf:
@@ -392,8 +401,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../SampleQtQuickControls/qml.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../SampleQtQuickControls/camera_utils.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../SampleQtQuickControls/main.cpp ../SampleQtQuickControls/camera_utils.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../SampleQtQuickControls/camera_utils.h ../SampleQtQuickControls/torch_utils.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../SampleQtQuickControls/main.cpp ../SampleQtQuickControls/camera_utils.cpp ../SampleQtQuickControls/torch_utils.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -422,11 +431,14 @@ qrc_qml.cpp: ../SampleQtQuickControls/qml.qrc \
 		../SampleQtQuickControls/main.qml
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name qml ../SampleQtQuickControls/qml.qrc -o qrc_qml.cpp
 
-compiler_moc_header_make_all: moc_camera_utils.cpp
+compiler_moc_header_make_all: moc_camera_utils.cpp moc_torch_utils.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_camera_utils.cpp
+	-$(DEL_FILE) moc_camera_utils.cpp moc_torch_utils.cpp
 moc_camera_utils.cpp: ../SampleQtQuickControls/camera_utils.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls -I/home/nightmareforev/git/Mock_GUI/baumer/include/bgapi2_genicam -I/home/nightmareforev/git/Mock_GUI/baumer/include/bgapi2_genicam -I/home/nightmareforev/git/Mock_GUI/baumer/include/bgapi2_genicam -I/home/nightmareforev/git/Mock_GUI/baumer/include/bgapi2_genicam -I/home/nightmareforev/git/Mock_GUI/baumer/include/bgapi2_genicam -I/home/nightmareforev/git/Mock_GUI/baumer/include/bgapi2_genicam -I/home/nightmareforev/git/Mock_GUI/baumer/include/bgapi2_genicam -I/home/nightmareforev/git/Mock_GUI/baumer/include/bgapi2_genicam -I/home/nightmareforev/git/Mock_GUI/baumer/include/bgapi2_genicam -I/home/nightmareforev/git/Mock_GUI/baumer/include/bgapi2_ext_sc -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SampleQtQuickControls/camera_utils.h -o moc_camera_utils.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls -I/home/nightmareforev/git/Mock_GUI/baumer/include -I/home/nightmareforev/git/Mock_GUI/libtorch/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SampleQtQuickControls/camera_utils.h -o moc_camera_utils.cpp
+
+moc_torch_utils.cpp: ../SampleQtQuickControls/torch_utils.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls -I/home/nightmareforev/git/Mock_GUI/baumer/include -I/home/nightmareforev/git/Mock_GUI/libtorch/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SampleQtQuickControls/torch_utils.h -o moc_torch_utils.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -442,7 +454,8 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean
 
 ####### Compile
 
-main.o: ../SampleQtQuickControls/main.cpp ../SampleQtQuickControls/camera_utils.h
+main.o: ../SampleQtQuickControls/main.cpp ../SampleQtQuickControls/camera_utils.h \
+		../SampleQtQuickControls/torch_utils.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../SampleQtQuickControls/main.cpp
 
 camera_utils.o: ../SampleQtQuickControls/camera_utils.cpp ../SampleQtQuickControls/camera_utils.h \
@@ -452,11 +465,231 @@ camera_utils.o: ../SampleQtQuickControls/camera_utils.cpp ../SampleQtQuickContro
 		../baumer/include/bgapi2_genicam/bgapi2_featurenames.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o camera_utils.o ../SampleQtQuickControls/camera_utils.cpp
 
+torch_utils.o: ../SampleQtQuickControls/torch_utils.cpp ../SampleQtQuickControls/torch_utils.h \
+		../libtorch/include/torch/script.h \
+		../libtorch/include/torch/csrc/api/include/torch/types.h \
+		../libtorch/include/ATen/ATen.h \
+		../libtorch/include/c10/core/Allocator.h \
+		../libtorch/include/c10/core/Device.h \
+		../libtorch/include/c10/core/DeviceType.h \
+		../libtorch/include/c10/macros/Macros.h \
+		../libtorch/include/c10/macros/cmake_macros.h \
+		../libtorch/include/c10/macros/Export.h \
+		../libtorch/include/c10/util/Exception.h \
+		../libtorch/include/c10/util/StringUtil.h \
+		../libtorch/include/c10/util/string_utils.h \
+		../libtorch/include/c10/util/Deprecated.h \
+		../libtorch/include/c10/util/UniqueVoidPtr.h \
+		../libtorch/include/ATen/core/ATenGeneral.h \
+		../libtorch/include/ATen/Context.h \
+		../libtorch/include/ATen/Tensor.h \
+		../libtorch/include/ATen/core/TensorBody.h \
+		../libtorch/include/c10/core/Layout.h \
+		../libtorch/include/c10/core/Backend.h \
+		../libtorch/include/c10/core/DispatchKey.h \
+		../libtorch/include/c10/core/MemoryFormat.h \
+		../libtorch/include/c10/util/ArrayRef.h \
+		../libtorch/include/c10/util/SmallVector.h \
+		../libtorch/include/c10/util/AlignOf.h \
+		../libtorch/include/c10/util/C++17.h \
+		../libtorch/include/c10/core/QScheme.h \
+		../libtorch/include/c10/core/Scalar.h \
+		../libtorch/include/c10/core/ScalarType.h \
+		../libtorch/include/c10/util/Half.h \
+		../libtorch/include/c10/util/Half-inl.h \
+		../libtorch/include/c10/util/BFloat16.h \
+		../libtorch/include/c10/util/BFloat16-inl.h \
+		../libtorch/include/c10/util/Optional.h \
+		../libtorch/include/c10/util/in_place.h \
+		../libtorch/include/c10/util/typeid.h \
+		../libtorch/include/c10/util/Backtrace.h \
+		../libtorch/include/c10/util/IdWrapper.h \
+		../libtorch/include/c10/util/Type.h \
+		../libtorch/include/c10/util/TypeTraits.h \
+		../libtorch/include/c10/util/TypeIndex.h \
+		../libtorch/include/c10/util/ConstexprCrc.h \
+		../libtorch/include/c10/util/string_view.h \
+		../libtorch/include/c10/util/reverse_iterator.h \
+		../libtorch/include/c10/util/qint32.h \
+		../libtorch/include/c10/util/qint8.h \
+		../libtorch/include/c10/util/quint8.h \
+		../libtorch/include/c10/util/flat_hash_map.h \
+		../libtorch/include/c10/util/TypeCast.h \
+		../libtorch/include/c10/core/Storage.h \
+		../libtorch/include/c10/core/StorageImpl.h \
+		../libtorch/include/c10/util/intrusive_ptr.h \
+		../libtorch/include/ATen/core/TensorAccessor.h \
+		../libtorch/include/c10/core/TensorImpl.h \
+		../libtorch/include/c10/core/TensorOptions.h \
+		../libtorch/include/c10/core/DefaultDtype.h \
+		../libtorch/include/c10/core/DispatchKeySet.h \
+		../libtorch/include/c10/util/llvmMathExtras.h \
+		../libtorch/include/c10/core/impl/LocalDispatchKeySet.h \
+		../libtorch/include/c10/util/Flags.h \
+		../libtorch/include/c10/util/Registry.h \
+		../libtorch/include/c10/core/CopyBytes.h \
+		../libtorch/include/c10/util/Logging.h \
+		../libtorch/include/c10/util/logging_is_google_glog.h \
+		../libtorch/include/c10/util/logging_is_not_google_glog.h \
+		../libtorch/include/c10/util/python_stub.h \
+		../libtorch/include/c10/core/UndefinedTensorImpl.h \
+		../libtorch/include/ATen/core/DeprecatedTypePropertiesRegistry.h \
+		../libtorch/include/ATen/core/DeprecatedTypeProperties.h \
+		../libtorch/include/ATen/core/Generator.h \
+		../libtorch/include/ATen/core/NamedTensor.h \
+		../libtorch/include/ATen/core/Dimname.h \
+		../libtorch/include/ATen/core/interned_strings.h \
+		../libtorch/include/ATen/core/aten_interned_strings.h \
+		../libtorch/include/ATen/core/TensorMethods.h \
+		../libtorch/include/ATen/core/dispatch/Dispatcher.h \
+		../libtorch/include/ATen/core/dispatch/OperatorEntry.h \
+		../libtorch/include/ATen/core/dispatch/DispatchTable.h \
+		../libtorch/include/ATen/core/function_schema.h \
+		../libtorch/include/ATen/core/jit_type.h \
+		../libtorch/include/ATen/core/functional.h \
+		../libtorch/include/ATen/core/ivalue.h \
+		../libtorch/include/ATen/core/blob.h \
+		../libtorch/include/torch/csrc/WindowsTorchApiMacro.h \
+		../libtorch/include/ATen/core/ivalue_inl.h \
+		../libtorch/include/ATen/core/Dict.h \
+		../libtorch/include/c10/util/TypeList.h \
+		../libtorch/include/c10/util/order_preserving_flat_hash_map.h \
+		../libtorch/include/ATen/core/Dict_inl.h \
+		../libtorch/include/ATen/core/List.h \
+		../libtorch/include/ATen/core/List_inl.h \
+		../libtorch/include/ATen/core/rref_interface.h \
+		../libtorch/include/ATen/core/qualified_name.h \
+		../libtorch/include/ATen/core/alias_info.h \
+		../libtorch/include/ATen/core/operator_name.h \
+		../libtorch/include/ATen/core/dispatch/OperatorOptions.h \
+		../libtorch/include/ATen/core/function_schema_inl.h \
+		../libtorch/include/c10/util/Metaprogramming.h \
+		../libtorch/include/c10/util/Array.h \
+		../libtorch/include/c10/util/either.h \
+		../libtorch/include/ATen/core/boxing/KernelFunction.h \
+		../libtorch/include/ATen/core/stack.h \
+		../libtorch/include/ATen/core/boxing/kernel_functor.h \
+		../libtorch/include/ATen/core/op_registration/infer_schema.h \
+		../libtorch/include/ATen/core/boxing/kernel_function.h \
+		../libtorch/include/ATen/core/boxing/kernel_lambda.h \
+		../libtorch/include/ATen/core/boxing/KernelFunction_impl.h \
+		../libtorch/include/ATen/core/boxing/boxing.h \
+		../libtorch/include/ATen/core/dispatch/DispatchKeyExtractor.h \
+		../libtorch/include/ATen/core/Variadic.h \
+		../libtorch/include/ATen/core/dispatch/RegistrationHandleRAII.h \
+		../libtorch/include/c10/util/LeftRight.h \
+		../libtorch/include/ATen/core/LegacyTypeDispatch.h \
+		../libtorch/include/ATen/core/LegacyDeviceTypeInit.h \
+		../libtorch/include/ATen/core/ScalarType.h \
+		../libtorch/include/ATen/TypeDefault.h \
+		../libtorch/include/ATen/Dimname.h \
+		../libtorch/include/ATen/CPUType.h \
+		../libtorch/include/ATen/QuantizedCPUType.h \
+		../libtorch/include/ATen/Utils.h \
+		../libtorch/include/ATen/Formatting.h \
+		../libtorch/include/ATen/core/Formatting.h \
+		../libtorch/include/ATen/core/Tensor.h \
+		../libtorch/include/ATen/CPUGenerator.h \
+		../libtorch/include/ATen/core/MT19937RNGEngine.h \
+		../libtorch/include/ATen/detail/CUDAHooksInterface.h \
+		../libtorch/include/ATen/detail/HIPHooksInterface.h \
+		../libtorch/include/c10/core/impl/DeviceGuardImplInterface.h \
+		../libtorch/include/c10/core/Stream.h \
+		../libtorch/include/c10/core/QEngine.h \
+		../libtorch/include/ATen/Device.h \
+		../libtorch/include/ATen/DeviceGuard.h \
+		../libtorch/include/c10/core/DeviceGuard.h \
+		../libtorch/include/c10/core/impl/InlineDeviceGuard.h \
+		../libtorch/include/c10/core/impl/VirtualGuardImpl.h \
+		../libtorch/include/ATen/DimVector.h \
+		../libtorch/include/ATen/core/DimVector.h \
+		../libtorch/include/ATen/Dispatch.h \
+		../libtorch/include/ATen/DynamicLibrary.h \
+		../libtorch/include/ATen/Functions.h \
+		../libtorch/include/ATen/NativeFunctions.h \
+		../libtorch/include/ATen/core/Reduction.h \
+		../libtorch/include/ATen/TensorUtils.h \
+		../libtorch/include/ATen/TensorGeometry.h \
+		../libtorch/include/ATen/WrapDimUtils.h \
+		../libtorch/include/c10/core/WrapDimMinimal.h \
+		../libtorch/include/ATen/NamedTensor.h \
+		../libtorch/include/ATen/ScalarOps.h \
+		../libtorch/include/ATen/TensorIndexing.h \
+		../libtorch/include/ATen/ExpandUtils.h \
+		../libtorch/include/ATen/TensorOperators.h \
+		../libtorch/include/ATen/Version.h \
+		../libtorch/include/ATen/core/Scalar.h \
+		../libtorch/include/ATen/core/UnsafeFromTH.h \
+		../libtorch/include/torch/csrc/autograd/generated/variable_factories.h \
+		../libtorch/include/ATen/core/grad_mode.h \
+		../libtorch/include/torch/csrc/api/include/torch/detail/TensorDataContainer.h \
+		../libtorch/include/torch/csrc/autograd/variable.h \
+		../libtorch/include/torch/csrc/utils/python_stub.h \
+		../libtorch/include/torch/csrc/autograd/edge.h \
+		../libtorch/include/torch/csrc/utils/hash.h \
+		../libtorch/include/torch/csrc/autograd/function_hook.h \
+		../libtorch/include/torch/csrc/autograd/cpp_hook.h \
+		../libtorch/include/ATen/NamedTensorUtils.h \
+		../libtorch/include/ATen/TensorNames.h \
+		../libtorch/include/torch/csrc/jit/frontend/tracer.h \
+		../libtorch/include/torch/csrc/jit/api/object.h \
+		../libtorch/include/torch/csrc/jit/api/method.h \
+		../libtorch/include/ATen/core/function.h \
+		../libtorch/include/torch/csrc/jit/api/function_impl.h \
+		../libtorch/include/torch/csrc/jit/ir/ir.h \
+		../libtorch/include/torch/csrc/jit/ir/attributes.h \
+		../libtorch/include/torch/csrc/jit/ir/graph_node_list.h \
+		../libtorch/include/torch/csrc/jit/ir/named_value.h \
+		../libtorch/include/torch/csrc/jit/ir/constants.h \
+		../libtorch/include/torch/csrc/jit/ir/scope.h \
+		../libtorch/include/torch/csrc/jit/frontend/source_range.h \
+		../libtorch/include/torch/csrc/utils/variadic.h \
+		../libtorch/include/torch/csrc/jit/runtime/operator.h \
+		../libtorch/include/torch/csrc/jit/frontend/function_schema_parser.h \
+		../libtorch/include/ATen/core/Macros.h \
+		../libtorch/include/torch/csrc/jit/runtime/operator_options.h \
+		../libtorch/include/torch/csrc/utils/disallow_copy.h \
+		../libtorch/include/torch/csrc/jit/runtime/graph_executor.h \
+		../libtorch/include/torch/csrc/jit/runtime/argument_spec.h \
+		../libtorch/include/torch/csrc/jit/runtime/interpreter.h \
+		../libtorch/include/torch/csrc/jit/runtime/variable_tensor_list.h \
+		../libtorch/include/torch/csrc/jit/python/update_graph_executor_opt.h \
+		../libtorch/include/torch/csrc/utils/memory.h \
+		../libtorch/include/torch/csrc/autograd/grad_mode.h \
+		../libtorch/include/torch/csrc/jit/runtime/custom_operator.h \
+		../libtorch/include/ATen/core/op_registration/op_registration.h \
+		../libtorch/include/ATen/core/OpsAlreadyMovedToC10.h \
+		../libtorch/include/torch/csrc/jit/serialization/import.h \
+		../libtorch/include/torch/csrc/jit/serialization/unpickler.h \
+		../libtorch/include/torch/csrc/jit/serialization/pickler.h \
+		../libtorch/include/caffe2/serialize/inline_container.h \
+		../libtorch/include/caffe2/serialize/istream_adapter.h \
+		../libtorch/include/caffe2/serialize/read_adapter_interface.h \
+		../libtorch/include/torch/csrc/jit/api/module.h \
+		../libtorch/include/torch/csrc/jit/passes/shape_analysis.h \
+		../libtorch/include/torch/csrc/api/include/torch/ordered_dict.h \
+		../libtorch/include/torch/csrc/jit/api/compilation_unit.h \
+		../libtorch/include/torch/csrc/jit/serialization/pickle.h \
+		../libtorch/include/torch/csrc/autograd/custom_function.h \
+		../libtorch/include/torch/csrc/autograd/function.h \
+		../libtorch/include/torch/csrc/autograd/anomaly_mode.h \
+		../libtorch/include/torch/csrc/autograd/profiler.h \
+		../libtorch/include/torch/csrc/autograd/record_function.h \
+		../libtorch/include/torch/csrc/autograd/saved_variable.h \
+		../libtorch/include/torch/csrc/autograd/input_metadata.h \
+		../libtorch/include/torch/custom_class.h \
+		../libtorch/include/ATen/core/builtin_function.h \
+		../libtorch/include/torch/custom_class_detail.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o torch_utils.o ../SampleQtQuickControls/torch_utils.cpp
+
 qrc_qml.o: qrc_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml.o qrc_qml.cpp
 
 moc_camera_utils.o: moc_camera_utils.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_camera_utils.o moc_camera_utils.cpp
+
+moc_torch_utils.o: moc_torch_utils.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_torch_utils.o moc_torch_utils.cpp
 
 ####### Install
 
