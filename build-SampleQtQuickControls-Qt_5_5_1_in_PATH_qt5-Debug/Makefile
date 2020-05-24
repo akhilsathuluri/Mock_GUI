@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -m64 -pipe -D_GLIBCXX_USE_CXX11_ABI=0 -g -std=c++1y -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../SampleQtQuickControls -I. -I../baumer/include -I../libtorch/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtQuick -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtQml -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
+INCPATH       = -I../SampleQtQuickControls -I. -I../baumer/include -I../libtorch/include -I-I/usr/local/include/opencv2 -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtQuick -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtQml -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = SampleQtQuickControls1.0.0
 DISTDIR = /home/nightmareforev/git/Mock_GUI/build-SampleQtQuickControls-Qt_5_5_1_in_PATH_qt5-Debug/.tmp/SampleQtQuickControls1.0.0
 LINK          = g++
 LFLAGS        = -m64 -fopenmp -D_GLIBCXX_USE_CXX11_ABI=0
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -L/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls/../baumer/lib/ -lbgapi2_ext_sc -lbgapi2_genicam -lbgapi2_img -lGCBase_gcc48_v3_2 -lGenApi_gcc48_v3_2 -llog4cpp_gcc48_v3_2 -lLog_gcc48_v3_2 -lMathParser_gcc48_v3_2 -lNodeMapData_gcc48_v3_2 -lXmlParser_gcc48_v3_2 -L/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls/../libtorch/lib/ -lc10 -lcaffe2_detectron_ops -lcaffe2_module_test_dynamic -lcaffe2_observers -lfbjni -lpytorch_jni -lshm -ltorch -ltorch_cpu -ltorch_global_deps -ltorch_python -lQt5Quick -lQt5Widgets -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -L/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls/../baumer/lib/ -lbgapi2_ext_sc -lbgapi2_genicam -lbgapi2_img -lGCBase_gcc48_v3_2 -lGenApi_gcc48_v3_2 -llog4cpp_gcc48_v3_2 -lLog_gcc48_v3_2 -lMathParser_gcc48_v3_2 -lNodeMapData_gcc48_v3_2 -lXmlParser_gcc48_v3_2 -L/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls/../libtorch/lib/ -lc10 -lcaffe2_detectron_ops -lcaffe2_module_test_dynamic -lcaffe2_observers -lfbjni -lpytorch_jni -lshm -ltorch -ltorch_cpu -ltorch_global_deps -ltorch_python -L/usr/local/lib/ -lbertini-parallel -lbertini-serial -lopencv_ca3d -lopencv_core -lopencv_dnn -lopencv_features2d -lopencv_flann -lopencv_gapi -lopencv_highgui -lopencv_imgcodecs -lopencv_imgproc -lopencv_ml -lopencv_objdetect -lopencv_photo -lopencv_stitching -lopencv_video -lopencv_videoio -lQt5Quick -lQt5Widgets -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -50,15 +50,19 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../SampleQtQuickControls/main.cpp \
 		../SampleQtQuickControls/camera_utils.cpp \
-		../SampleQtQuickControls/torch_utils.cpp qrc_qml.cpp \
+		../SampleQtQuickControls/torch_utils.cpp \
+		../SampleQtQuickControls/cv_utils.cpp qrc_qml.cpp \
 		moc_camera_utils.cpp \
-		moc_torch_utils.cpp
+		moc_torch_utils.cpp \
+		moc_cv_utils.cpp
 OBJECTS       = main.o \
 		camera_utils.o \
 		torch_utils.o \
+		cv_utils.o \
 		qrc_qml.o \
 		moc_camera_utils.o \
-		moc_torch_utils.o
+		moc_torch_utils.o \
+		moc_cv_utils.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -152,9 +156,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../SampleQtQuickControls/SampleQtQuickControls.pro ../SampleQtQuickControls/camera_utils.h \
-		../SampleQtQuickControls/torch_utils.h ../SampleQtQuickControls/main.cpp \
+		../SampleQtQuickControls/torch_utils.h \
+		../SampleQtQuickControls/cv_utils.h ../SampleQtQuickControls/main.cpp \
 		../SampleQtQuickControls/camera_utils.cpp \
-		../SampleQtQuickControls/torch_utils.cpp
+		../SampleQtQuickControls/torch_utils.cpp \
+		../SampleQtQuickControls/cv_utils.cpp
 QMAKE_TARGET  = SampleQtQuickControls
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = SampleQtQuickControls
@@ -401,8 +407,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../SampleQtQuickControls/qml.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../SampleQtQuickControls/camera_utils.h ../SampleQtQuickControls/torch_utils.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../SampleQtQuickControls/main.cpp ../SampleQtQuickControls/camera_utils.cpp ../SampleQtQuickControls/torch_utils.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../SampleQtQuickControls/camera_utils.h ../SampleQtQuickControls/torch_utils.h ../SampleQtQuickControls/cv_utils.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../SampleQtQuickControls/main.cpp ../SampleQtQuickControls/camera_utils.cpp ../SampleQtQuickControls/torch_utils.cpp ../SampleQtQuickControls/cv_utils.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -427,18 +433,22 @@ compiler_rcc_make_all: qrc_qml.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_qml.cpp
 qrc_qml.cpp: ../SampleQtQuickControls/qml.qrc \
+		../SampleQtQuickControls/predictp.qml \
 		../SampleQtQuickControls/camerap.qml \
 		../SampleQtQuickControls/main.qml
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name qml ../SampleQtQuickControls/qml.qrc -o qrc_qml.cpp
 
-compiler_moc_header_make_all: moc_camera_utils.cpp moc_torch_utils.cpp
+compiler_moc_header_make_all: moc_camera_utils.cpp moc_torch_utils.cpp moc_cv_utils.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_camera_utils.cpp moc_torch_utils.cpp
+	-$(DEL_FILE) moc_camera_utils.cpp moc_torch_utils.cpp moc_cv_utils.cpp
 moc_camera_utils.cpp: ../SampleQtQuickControls/camera_utils.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls -I/home/nightmareforev/git/Mock_GUI/baumer/include -I/home/nightmareforev/git/Mock_GUI/libtorch/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SampleQtQuickControls/camera_utils.h -o moc_camera_utils.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls -I/home/nightmareforev/git/Mock_GUI/baumer/include -I/home/nightmareforev/git/Mock_GUI/libtorch/include -I/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls/-I/usr/local/include/opencv2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SampleQtQuickControls/camera_utils.h -o moc_camera_utils.cpp
 
 moc_torch_utils.cpp: ../SampleQtQuickControls/torch_utils.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls -I/home/nightmareforev/git/Mock_GUI/baumer/include -I/home/nightmareforev/git/Mock_GUI/libtorch/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SampleQtQuickControls/torch_utils.h -o moc_torch_utils.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls -I/home/nightmareforev/git/Mock_GUI/baumer/include -I/home/nightmareforev/git/Mock_GUI/libtorch/include -I/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls/-I/usr/local/include/opencv2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SampleQtQuickControls/torch_utils.h -o moc_torch_utils.cpp
+
+moc_cv_utils.cpp: ../SampleQtQuickControls/cv_utils.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls -I/home/nightmareforev/git/Mock_GUI/baumer/include -I/home/nightmareforev/git/Mock_GUI/libtorch/include -I/home/nightmareforev/git/Mock_GUI/SampleQtQuickControls/-I/usr/local/include/opencv2 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtQuick -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtQml -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SampleQtQuickControls/cv_utils.h -o moc_cv_utils.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -455,7 +465,8 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean
 ####### Compile
 
 main.o: ../SampleQtQuickControls/main.cpp ../SampleQtQuickControls/camera_utils.h \
-		../SampleQtQuickControls/torch_utils.h
+		../SampleQtQuickControls/torch_utils.h \
+		../SampleQtQuickControls/cv_utils.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../SampleQtQuickControls/main.cpp
 
 camera_utils.o: ../SampleQtQuickControls/camera_utils.cpp ../SampleQtQuickControls/camera_utils.h \
@@ -682,6 +693,9 @@ torch_utils.o: ../SampleQtQuickControls/torch_utils.cpp ../SampleQtQuickControls
 		../libtorch/include/torch/custom_class_detail.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o torch_utils.o ../SampleQtQuickControls/torch_utils.cpp
 
+cv_utils.o: ../SampleQtQuickControls/cv_utils.cpp ../SampleQtQuickControls/cv_utils.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cv_utils.o ../SampleQtQuickControls/cv_utils.cpp
+
 qrc_qml.o: qrc_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml.o qrc_qml.cpp
 
@@ -690,6 +704,9 @@ moc_camera_utils.o: moc_camera_utils.cpp
 
 moc_torch_utils.o: moc_torch_utils.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_torch_utils.o moc_torch_utils.cpp
+
+moc_cv_utils.o: moc_cv_utils.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_cv_utils.o moc_cv_utils.cpp
 
 ####### Install
 

@@ -4,7 +4,8 @@ QT += qml quick widgets
 
 SOURCES += main.cpp \
     camera_utils.cpp \
-    torch_utils.cpp
+    torch_utils.cpp \
+    cv_utils.cpp
 
 RESOURCES += qml.qrc
 
@@ -16,7 +17,8 @@ include(deployment.pri)
 CONFIG += c++14
 HEADERS += \
     camera_utils.h \
-    torch_utils.h
+    torch_utils.h \
+    cv_utils.h
 
 QMAKE_CXXFLAGS += -D_GLIBCXX_USE_CXX11_ABI=0
 QMAKE_LFLAGS += -fopenmp -D_GLIBCXX_USE_CXX11_ABI=0
@@ -67,3 +69,21 @@ else:unix {
 
 INCLUDEPATH += $$PWD/../libtorch/include
 DEPENDPATH += $$PWD/../libtorch/include
+
+# Adding openCV libraries
+#unix {
+#    CONFIG += link_pkgconfig
+#    PKGCONFIG += opencv
+#}
+
+INCLUDEPATH += -I/usr/local/include/opencv2
+
+unix {
+    SHARED_LIB_FILES = $$files(/usr/local/lib/*.so)
+    for(FILE, SHARED_LIB_FILES) {
+        BASENAME = $$basename(FILE)
+        BASENAME2 = $$replace(BASENAME, lib, )
+        LIBS += -L/usr/local/lib/ -l$$replace(BASENAME2,.so,)
+#        message(-L/usr/local/lib/ -l$$replace(BASENAME2,.so,))
+    }
+}

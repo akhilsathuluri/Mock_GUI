@@ -1,22 +1,6 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import io.qt.camerautils 1.0
-import io.qt.torchutils 1.0
-
-//ApplicationWindow {
-//    id: root
-//    width: 1000
-//    height: 480
-//    visible: true
-//    CamUtils {
-//    id: camutils
-//    }
-//    Text{
-
-//    text:camutils.result()
-
-//    }
-//}
 
 ApplicationWindow {
     id: root
@@ -24,10 +8,6 @@ ApplicationWindow {
 
     CamUtils{
     id: camutils
-    }
-
-    TorUtils{
-        id:torchutils
     }
 
     Button {
@@ -41,10 +21,23 @@ ApplicationWindow {
         anchors.bottomMargin: 138
         anchors.horizontalCenter: parent.horizontalCenter
         onClicked:{
-            console.log(camutils.find_device())
+            textbox.text = camutils.find_device()
             console.log(  )
             console.log(torchutils.load_model())
         }
+        Rectangle{
+          x: -200
+          y: -250
+        width:550
+        height:100
+        color : "white"
+        radius: 15
+        }
+        Text{
+        id: textbox
+        x: -190
+        y: -240
+        text : "Camera not Found"
+        }
     }
 }
-

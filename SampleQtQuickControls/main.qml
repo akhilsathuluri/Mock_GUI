@@ -1,5 +1,6 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
+import io.qt.cvutils 1.0
 
 ApplicationWindow {
     id: root
@@ -7,12 +8,33 @@ ApplicationWindow {
     width: 640
     height: 480
 
+    CvUtils{
+        id:cvutils
+    }
+
+    Button {
+        id: predict
+        x: 245
+        y: 57
+        width: 150
+        height: 47
+        text: qsTr("Predict")
+        onClicked: {
+            var component = Qt.createComponent("predictp.qml")
+            console.log("Component Status:", component.status, component.errorString())
+            var window = component.createObject(root)
+            window.show()
+
+        }
+    }
+
     Grid {
         id: grid
         x: 28
         y: 129
         width: 600
         height: 169
+        anchors.verticalCenterOffset: 17
         anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
@@ -70,7 +92,12 @@ ApplicationWindow {
             width: 150
             height: 47
             text: qsTr("Extra")
+            onClicked: {
+                cvutils.preprocess_image()
+            }
         }
+
     }
+
 }
 

@@ -14,7 +14,7 @@ torchUtils::torchUtils(QObject *parent)
 
 QString torchUtils::load_model()
 {
-    QString y;
+    QString msg;
     torch::jit::script::Module module;
 
     try {
@@ -22,18 +22,27 @@ QString torchUtils::load_model()
       module = torch::jit::load("../traced_resnet_model.pt");
     }
     catch (const c10::Error& e) {
-      y.append("Cannot load model\n");
-      return y;
+      msg.append("Error loading model. Please check if the model is in the right directory\n");
+      return msg;
     }
+    msg.append("Model successfully loaded.\nPlease enter the path of the image to be classified\n");
+    return msg;
+}
 
-    // Create a vector of inputs.
-    std::vector<torch::jit::IValue> inputs;
-    inputs.push_back(torch::ones({1, 3, 224, 224}));
 
-    // Execute the model and turn its output into a tensor.
-    at::Tensor output = module.forward(inputs).toTensor();
-    std::cout << output.slice(/*dim=*/1, /*start=*/0, /*end=*/5) << '\n';
+QString torchUtils::predict_output(QString img_path)
+{
+    QString output;
+    // Using openCV for preprocessing the input image
 
-    y.append("ok\n");
-    return y;
+    //    // Create a vector of inputs.
+    //    std::vector<torch::jit::IValue> inputs;
+    //    inputs.push_back(torch::ones({1, 3, 224, 224}));
+
+    //    // Execute the model and turn its output into a tensor.
+    //    at::Tensor output = module.forward(inputs).toTensor();
+    //    std::cout << output.slice(/*dim=*/1, /*start=*/0, /*end=*/5) << '\n';
+
+    output.append("prediction successful");
+    return output;
 }
