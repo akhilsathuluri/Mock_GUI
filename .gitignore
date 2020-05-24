@@ -1,4 +1,4 @@
 # Ignore the libtorch directory
 libtorch/
-
+opencv-4.3.0/
 
